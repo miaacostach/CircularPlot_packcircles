@@ -10,10 +10,12 @@ library(tidyr)
 # CARGAR BASE DATOS---------------------------------------------------
 
 #file.choose()
-d<-read.table("C:\\Users\\MiguelAngel\\Documents\\packcircles\\oms.txt", sep=",")
+d<-read_excel("C:\\Users\\MiguelAngel\\Documents\\R Miguelo\\Guillermo (Circular Packing)\\oms.xls")
 
 head(d)
 View(d)
+
+d<-d[,-1]
 
 # VERIFICAR [NAs] ------------------------------------------------------------
 
@@ -28,7 +30,6 @@ sapply(d2, function(x) sum(is.na(x)))
 
 d3 <- circleProgressiveLayout(d2$Frecuencia, sizetype='area')
 
-
 d4 <- cbind(d2$Siglas, d2$Frecuencia , d3)
 
 names(d4)
@@ -38,7 +39,6 @@ names(d4)[2] = "Frecuencia"
 
 names(d4)
 
-
 # CREACION DE VERTICES -----------------------------------------------
 
 d5 <- circleLayoutVertices(d3, npoints=30)
@@ -46,7 +46,7 @@ head(d5)
 
 # GRAFICO CIRCULAR --------------------------------------------------------
 
-ggplot() + 
+p<-ggplot() + 
   geom_polygon(data = d5, aes(x, y, group = id, fill=as.factor(id)), 
                colour = "gray8",size=0.34, alpha = 0.65) +
   geom_text(data = d4, aes(x, y, size=Frecuencia, label=Siglas),size=2.0) +
@@ -57,4 +57,5 @@ ggplot() +
         plot.title = element_text(color="black")) +
   coord_equal()+
   ggtitle("Participacion organizaciones sindicales en Mexico")
+
 
