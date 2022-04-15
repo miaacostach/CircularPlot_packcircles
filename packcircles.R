@@ -7,11 +7,10 @@ library(viridis)
 library(ggplot2)
 library(tidyr)
 
-
 # CARGAR BASE DATOS---------------------------------------------------
 
 #file.choose()
-d<-read_excel("C:\\Users\\MiguelAngel\\Documents\\R Miguelo\\Guillermo (Circular Packing)\\oms.xls")
+d<-read.table("C:\\Users\\MiguelAngel\\Documents\\packcircles\\oms.txt", sep=",")
 
 head(d)
 View(d)
@@ -45,7 +44,6 @@ names(d4)
 d5 <- circleLayoutVertices(d3, npoints=30)
 head(d5)
 
-
 # GRAFICO CIRCULAR --------------------------------------------------------
 
 ggplot() + 
@@ -59,5 +57,4 @@ ggplot() +
         plot.title = element_text(color="black")) +
   coord_equal()+
   ggtitle("Participacion organizaciones sindicales en Mexico")
-
 
